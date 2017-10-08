@@ -1,0 +1,11 @@
+apply plugin: "java"
+apply plugin: "net.ltgt.apt"
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/", "build/generated/source/apt/main" ]
+
+eclipse.project {
+    name = appName + "-core"
+}
