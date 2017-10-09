@@ -14,7 +14,7 @@ public class Clock implements Disposable {
     private Texture goldenDot16;
     private CircleMath circleMath;
     private CurrentTime currentTime;
-    int tick = 0;
+    long tick = 0;
 
     @Inject
     public Clock(CircleMath circleMath, CurrentTime currentTime) {
@@ -22,7 +22,7 @@ public class Clock implements Disposable {
         this.currentTime = currentTime;
         this.greenDot8 = new Texture("GreenDot8.png");
         this.blueDot8 = new Texture("BlueDot8.png");
-        this.redDot8 = new Texture("RedDot16.png");
+        this.redDot8 = new Texture("RedDot8.png");
         this.goldenDot16 = new Texture("GoldenDot16.png");
     }
 
@@ -33,8 +33,6 @@ public class Clock implements Disposable {
         double originY = sizeY / 2;
 
         batch.begin();
-
-
         double scale = 16;
         drawClockFields(batch, originX, originY, scale);
         drawMinutes(batch, originX, originY, scale);
@@ -45,13 +43,21 @@ public class Clock implements Disposable {
     private void drawSeconds(SpriteBatch batch, double originX, double originY, double scale) {
         int secondsNow = currentTime.getSeconds();
         int milliseconds = currentTime.getMilliseconds();
-        System.out.println(milliseconds);
+        int minutes = currentTime.getMinute();
         double secondsArrowDegree = (double)secondsNow + (double)milliseconds/1000.0;
-
         for (int secondIterator = 0; secondIterator < secondsNow; secondIterator++) {
             double degree = Math.PI / 2.0 - secondsArrowDegree * Math.PI * 2.0 / 60.0;
-            Vector2 pos = circleMath.getPointOnCircle(originX, originY, degree, scale * secondIterator + 1);
-            batch.draw(blueDot8, pos.x - 4, pos.y - 4);
+            float x = (float)circleMath.getPointOnCircleX(originX, originY, degree, scale * secondIterator + 1);
+            float y = (float)circleMath.getPointOnCircleY(originX, originY, degree, scale * secondIterator + 1);
+            batch.draw(blueDot8, x - 4.0f, y - 4.0f);
+        }
+        for(int j = 0; j < secondsNow; j++){
+            for (int secondIterator = 0; secondIterator < secondsNow; secondIterator++) {
+                double degree = Math.PI / 2.0 - j * Math.PI * 2.0 / 60.0;
+                float x = (float)circleMath.getPointOnCircleX(originX, originY, degree, scale * secondIterator + 1);
+                float y = (float)circleMath.getPointOnCircleY(originX, originY, degree, scale * secondIterator + 1);
+                batch.draw(blueDot8, x - 4.0f, y - 4.0f);
+            }
         }
     }
 
@@ -59,8 +65,10 @@ public class Clock implements Disposable {
         for (int minutesIterator = 0; minutesIterator < 60; minutesIterator++) {
             for (int secondIterator = 0; secondIterator < 60; secondIterator++) {
                 double degree = minutesIterator * Math.PI * 2 / 60.0 - Math.PI / 2;
-                Vector2 pos = circleMath.getPointOnCircle(originX, originY, degree, scale * secondIterator + 1);
-                batch.draw(redDot8, pos.x - 8, pos.y - 8);
+                float x = (float)circleMath.getPointOnCircleX(originX, originY, degree, scale * secondIterator + 1);
+                float y = (float)circleMath.getPointOnCircleY(originX, originY, degree, scale * secondIterator + 1);
+
+                batch.draw(redDot8, x - 4.0f, y - 4.0f);
             }
         }
     }
@@ -71,8 +79,8 @@ public class Clock implements Disposable {
         double degreeToHours = Math.PI / 2.0 - hour * Math.PI * 2.0 / 12.0;
 
         for (int previousMinuteIterator = 0; previousMinuteIterator < minute; previousMinuteIterator++) {
-            Vector2 pos = circleMath.getPointOnCircle(originX, originY, degreeToHours, scale * previousMinuteIterator + 1);
-            batch.draw(goldenDot16, pos.x - 8, pos.y - 8);
+            float x = (float)circleMath.getPointOnCircleX(originX, originY, degreeToHours, scale * previousMinuteIterator + 1);
+            float y = (float)circleMath.getPointOnCircleY(originX, originY, degreeToHours, scale * previousMinuteIterator + 1);
         }
     }
 

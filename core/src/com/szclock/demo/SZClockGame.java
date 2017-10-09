@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.szclock.demo.clock.Clock;
 import com.szclock.demo.dagger.DaggerMainComponent;
 import com.szclock.demo.dagger.MainComponent;
-//import com.szclock.demo.dagger.MainComponent;
 
 public class SZClockGame extends ApplicationAdapter {
     SpriteBatch batch;
@@ -26,7 +25,6 @@ public class SZClockGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         clock.draw(batch, 1200, 1028);
-        System.out.println("tick");
     }
 
     @Override

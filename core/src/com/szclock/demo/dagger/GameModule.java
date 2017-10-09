@@ -34,6 +34,4 @@ public class GameModule {
     public static CurrentTime provideCurrentTime() {
         return new CurrentTime();
     }
-
-
 }
