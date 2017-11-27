@@ -15,11 +15,16 @@ public class Clock implements Disposable {
     private Texture goldenDot16;
     private CircleMath circleMath;
     private CurrentTime currentTime;
+    private TextureManager textureManager;
 
     @Inject
     public Clock(TextureManager textureManager, CircleMath circleMath, CurrentTime currentTime) {
         this.circleMath = circleMath;
         this.currentTime = currentTime;
+        this.textureManager = textureManager;
+    }
+
+    public void init(){
         this.greenDot8 = textureManager.loadTexture("GreenDot8.png");
         this.blueDot8 = textureManager.loadTexture("BlueDot8.png");
         this.redDot8 = textureManager.loadTexture("RedDot8.png");

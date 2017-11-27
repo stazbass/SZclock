@@ -25,6 +25,7 @@ public class SZClockGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         mainComponent = DaggerMainComponent.builder().build();
         clock = mainComponent.provideClock();
+        clock.init();
     }
 
     @Override
@@ -40,6 +41,7 @@ public class SZClockGame extends ApplicationAdapter {
 
     @Override
     public void resize(int width, int height) {
+        camera.update();
     }
 
     @Override
