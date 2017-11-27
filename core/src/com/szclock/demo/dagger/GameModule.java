@@ -1,9 +1,11 @@
 package com.szclock.demo.dagger;
 
+import com.szclock.demo.TextureManager;
 import com.szclock.demo.clock.CircleMath;
 import com.szclock.demo.clock.Clock;
 import com.szclock.demo.clock.CurrentTime;
 import com.szclock.demo.data.GameData;
+import com.szclock.demo.logger.GameLogger;
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,8 +15,20 @@ import javax.inject.Singleton;
 public class GameModule {
     @Provides
     @Singleton
-    public static Clock provideClock(CircleMath math, CurrentTime currentTime) {
-        return new Clock(math, currentTime);
+    public static Clock provideClock(TextureManager textureManager, CircleMath math, CurrentTime currentTime) {
+        return new Clock(textureManager, math, currentTime);
+    }
+
+    @Provides
+    @Singleton
+    public static TextureManager provideTextureManager(GameLogger logger) {
+        return new TextureManager(logger);
+    }
+
+    @Provides
+    @Singleton
+    public static GameLogger provideLogger() {
+        return new GameLogger();
     }
 
     @Provides
