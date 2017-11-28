@@ -53,8 +53,6 @@ project(":core") {
     apply plugin: "java"
     apply plugin: "net.ltgt.apt"
     
-    sourceSets.test.java.srcDirs = ["/test"]
-
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.google.dagger:dagger:2.7"
