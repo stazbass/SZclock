@@ -60,7 +60,7 @@ public class Clock implements Disposable {
             drawCentered(batch, blueDot8, position.x, position.y, (float) scaleFactor);
         }
 
-        long millisecondsInSecond = milliseconds % 1000;
+        int millisecondsInSecond = milliseconds % 1000;
         double dtime = millisecondsInSecond <= 500 ? millisecondsInSecond / 500.0 : (1000 - millisecondsInSecond) / 500.0;
         double currentSecondArrowScale = Interpolation.smoother.apply((float) dtime);
 
@@ -70,24 +70,14 @@ public class Clock implements Disposable {
                 drawCentered(batch, blueDot8, position.x, position.y, (float) scaleFactor);
             }
         }
-        float millisecondsNormalized = (1 - milliseconds / 1000.0f);
-        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, milliseconds);
-        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow+1, 0);
-        Vector2 millisPosition = new Vector2(getInterpolation().apply(secondsPosition.x, nextSecondsPosition.x, millisecondsNormalized),
-                getInterpolation().apply(secondsPosition.y, nextSecondsPosition.y, millisecondsNormalized));
+//        float millisecondsNormalized = (1 - milliseconds / 1000.0f);
+//        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, milliseconds);
+//        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow+1, 0);
+//        Vector2 millisPosition = new Vector2(getInterpolation().apply(secondsPosition.x, nextSecondsPosition.x, millisecondsNormalized),
+//                getInterpolation().apply(secondsPosition.y, nextSecondsPosition.y, millisecondsNormalized));
+        Vector2 millisPosition = getMillisecondsPosition(origin, millisecondsInSecond, secondsNow, (float)scaleFactor);
         drawCentered(batch, greenDot8, millisPosition.x, millisPosition.y, (float)scaleFactor);
     }
-
-//    private void drawMilliseconds(SpriteBatch batch, double originX, double originY, double scale) {
-//        int secondsNow = currentTime.getSeconds();
-//        long milliseconds = currentTime.getMilliseconds();
-//        double secondsArrowDegree = (double) secondsNow + (double) milliseconds / 1000.0;
-//        double secondIterator = secondsNow - (1 - milliseconds / 1000.0);
-//        double degree = Math.PI / 2.0 - secondsArrowDegree * Math.PI * 2.0 / 60.0;
-//        float x = (float) circleMath.getPointOnCircleX(originX, originY, degree, scale * secondIterator + 1);
-//        float y = (float) circleMath.getPointOnCircleY(originX, originY, degree, scale * secondIterator + 1);
-//        drawCentered(batch, blueDot8, x, y, (float) scaleFactor);
-//    }
 
 //    private void drawClockFields(SpriteBatch batch, double originX, double originY, double scale) {
 //        for (int minutesIterator = 0; minutesIterator < 60; minutesIterator++) {
@@ -104,8 +94,8 @@ public class Clock implements Disposable {
         int hour = currentTime.getHour();
         int minute = currentTime.getMinute();
 
-        for (int previousMinuteIterator = 0; previousMinuteIterator < minute; previousMinuteIterator++) {
-            Vector2 position = getMinutesPointPosition(origin, scale, minute, hour);
+        for (int minuteIter = 0; minuteIter < minute; minuteIter++) {
+            Vector2 position = getMinutesPointPosition(origin, scale, minuteIter, hour);
             drawCentered(batch, goldenDot16, position.x, position.y, (float) scaleFactor);
         }
     }
@@ -119,6 +109,15 @@ public class Clock implements Disposable {
         double dtime = millisecondsInSecond <= 500 ? millisecondsInSecond / 500.0 : (1000 - millisecondsInSecond) / 500.0;
 
         return interpolation.apply((float) dtime);
+    }
+
+    private Vector2 getMillisecondsPosition(Vector2 origin, int milliseconds, int secondsNow, float scale){
+        float millisecondsNormalized = (1 - milliseconds / 1000.0f);
+        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, milliseconds);
+        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow+1, 0);
+        Vector2 millisPosition = new Vector2(getInterpolation().apply(secondsPosition.x, nextSecondsPosition.x, millisecondsNormalized),
+                getInterpolation().apply(secondsPosition.y, nextSecondsPosition.y, millisecondsNormalized));
+        return  millisPosition;
     }
 
     private Vector2 getSecondPointPosition(Vector2 origin, float scale, int secondsNow, int millisecondsOfSecond){
