@@ -37,17 +37,13 @@ public class Clock implements Disposable {
     public void draw(SpriteBatch batch, int sizeX, int sizeY) {
         tick += 1;
 
-        double originX = sizeX / 2;
-        double originY = sizeY / 2;
         Vector2 origin = new Vector2(sizeX/2.0f, sizeY/2.0f);
 
         batch.begin();
         float scale = 16.0f;
         scaleFactor = getScaleValue(currentTime.getMilliseconds(), getInterpolation());
-//        drawClockFields(batch, originX, originY, scale);
         drawMinutes(batch, origin, scale);
         drawSeconds(batch, origin, scale);
-//        drawMilliseconds(batch, originX, originY, scale);
         batch.end();
     }
 
@@ -70,25 +66,9 @@ public class Clock implements Disposable {
                 drawCentered(batch, blueDot8, position.x, position.y, (float) scaleFactor);
             }
         }
-//        float millisecondsNormalized = (1 - milliseconds / 1000.0f);
-//        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, milliseconds);
-//        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow+1, 0);
-//        Vector2 millisPosition = new Vector2(getInterpolation().apply(secondsPosition.x, nextSecondsPosition.x, millisecondsNormalized),
-//                getInterpolation().apply(secondsPosition.y, nextSecondsPosition.y, millisecondsNormalized));
         Vector2 millisPosition = getMillisecondsPosition(origin, millisecondsInSecond, secondsNow, (float)scaleFactor);
         drawCentered(batch, greenDot8, millisPosition.x, millisPosition.y, (float)scaleFactor);
     }
-
-//    private void drawClockFields(SpriteBatch batch, double originX, double originY, double scale) {
-//        for (int minutesIterator = 0; minutesIterator < 60; minutesIterator++) {
-//            for (int secondIterator = 0; secondIterator < 60; secondIterator++) {
-//                double degree = minutesIterator * Math.PI * 2 / 60.0 - Math.PI / 2;
-//                float x = (float) circleMath.getPointOnCircleX(originX, originY, degree, scale * secondIterator + 1);
-//                float y = (float) circleMath.getPointOnCircleY(originX, originY, degree, scale * secondIterator + 1);
-//                drawCentered(batch, redDot8, x, y, (float) scaleFactor);
-//            }
-//        }
-//    }
 
     private void drawMinutes(SpriteBatch batch, Vector2 origin, float scale) {
         int hour = currentTime.getHour();
@@ -113,10 +93,9 @@ public class Clock implements Disposable {
 
     private Vector2 getMillisecondsPosition(Vector2 origin, int milliseconds, int secondsNow, float scale){
         float millisecondsNormalized = (1 - milliseconds / 1000.0f);
-        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, milliseconds);
+        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, 0);
         Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow+1, 0);
-        Vector2 millisPosition = new Vector2(getInterpolation().apply(secondsPosition.x, nextSecondsPosition.x, millisecondsNormalized),
-                getInterpolation().apply(secondsPosition.y, nextSecondsPosition.y, millisecondsNormalized));
+        Vector2 millisPosition = secondsPosition.interpolate(nextSecondsPosition, millisecondsNormalized, getInterpolation());
         return  millisPosition;
     }
 
@@ -130,8 +109,6 @@ public class Clock implements Disposable {
         float degree = (float)(Math.PI / 2.0 - hour * Math.PI * 2.0 / 12.0);
         return circleMath.getPointOnCircle(origin.x, origin.y, degree, scale * minute);
     }
-
-
 
     private Interpolation getInterpolation() {
         return Interpolation.smooth;
