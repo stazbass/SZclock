@@ -9,7 +9,7 @@ public class CurrentTime {
     }
 
     public int getHour() {
-        return Calendar.getInstance().get(Calendar.HOUR);
+        return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     }
 
     public int getMinute() {

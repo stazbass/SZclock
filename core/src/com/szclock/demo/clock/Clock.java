@@ -40,6 +40,7 @@ public class Clock implements Disposable {
         Vector2 origin = new Vector2(sizeX/2.0f, sizeY/2.0f);
 
         batch.begin();
+
         float scale = 16.0f;
         scaleFactor = getScaleValue(currentTime.getMilliseconds(), getInterpolation());
         drawMinutes(batch, origin, scale);
