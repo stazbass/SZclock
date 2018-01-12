@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class Clock implements Disposable {
-    long tick = 0;
     private Texture blueDot8;
     private Texture redDot8;
     private Texture goldenDot16;
@@ -38,8 +37,6 @@ public class Clock implements Disposable {
     }
 
     public void draw(SpriteBatch batch, int sizeX, int sizeY) {
-        tick += 1;
-
         Vector2 origin = new Vector2(sizeX/2.0f, sizeY/2.0f);
         clockModel = new ClockModel(origin, 16.0);
 
