@@ -15,16 +15,12 @@ public class Clock implements Disposable {
     private Texture redDot8;
     private Texture goldenDot16;
     private Texture greenDot8;
-    private CircleMath circleMath;
-    private CurrentTime currentTime;
     private TextureManager textureManager;
     private ClockModel clockModel;
     private TimeProvider timeProvider;
 
     @Inject
-    public Clock(TextureManager textureManager, CircleMath circleMath, CurrentTime currentTime) {
-        this.circleMath = circleMath;
-        this.currentTime = currentTime;
+    public Clock(TextureManager textureManager) {
         this.textureManager = textureManager;
         this.timeProvider = new TimeProvider(new CurrentTime());
     }
@@ -41,12 +37,14 @@ public class Clock implements Disposable {
         clockModel = new ClockModel(origin, 16.0);
 
 
-        TimeRecord time = timeProvider.getTimeRecord();
         batch.begin();
+
+        TimeRecord time = timeProvider.getTimeRecord();
         List<Vector2> seconds = clockModel.getSeconds(time);
         seconds.forEach(p->drawCentered(batch, blueDot8, p.x, p.y, 1));
         List<Vector2> minutes = clockModel.getMinutes(time);
         minutes.forEach(p->drawCentered(batch, greenDot8, p.x, p.y, 1));
+
         batch.end();
     }
 

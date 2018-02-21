@@ -14,6 +14,7 @@ public class SZClockGame extends ApplicationAdapter {
     public static final int VIEWPORT_HEIGHT = 1028;
     SpriteBatch batch;
     Clock clock;
+    FramesPerSecond fps;
     MainComponent mainComponent;
     OrthographicCamera camera;
 
@@ -26,6 +27,7 @@ public class SZClockGame extends ApplicationAdapter {
         mainComponent = DaggerMainComponent.builder().build();
         clock = mainComponent.provideClock();
         clock.init();
+        fps = new FramesPerSecond();
     }
 
     @Override
@@ -37,6 +39,7 @@ public class SZClockGame extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         clock.draw(batch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        fps.draw(batch);
     }
 
     @Override

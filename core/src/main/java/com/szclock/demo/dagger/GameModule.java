@@ -15,8 +15,8 @@ import javax.inject.Singleton;
 public class GameModule {
     @Provides
     @Singleton
-    public static Clock provideClock(TextureManager textureManager, CircleMath math, CurrentTime currentTime) {
-        return new Clock(textureManager, math, currentTime);
+    public static Clock provideClock(TextureManager textureManager) {
+        return new Clock(textureManager);
     }
 
     @Provides
