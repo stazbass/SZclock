@@ -23,7 +23,7 @@ public class ClockModel {
         List<Vector2> result = new ArrayList<>(70);
 
         for (int secondIterator = 0; secondIterator < secondsNow; secondIterator++) {
-            Vector2 position = getSecondPointPosition(origin, scale, secondIterator, milliseconds);
+            Vector2 position = getSecondPointPosition(origin, scale, secondIterator);
             result.add(position);
         }
 
@@ -33,11 +33,11 @@ public class ClockModel {
 
         for (int j = 1; j <= secondsNow; j++) {
             for (int secondIterator = 0; secondIterator < j * currentSecondArrowScale; secondIterator++) {
-                result.add(getSecondPointPosition(origin, scale, secondIterator, milliseconds));
+//                result.add(getSecondPointPosition(origin, scale, secondIterator, milliseconds));
             }
         }
-        Vector2 millisPosition = getMillisecondsPosition(origin, millisecondsInSecond, secondsNow, 1.0);
-        result.add(millisPosition);
+//        Vector2 millisPosition = getMillisecondsPosition(origin, millisecondsInSecond, secondsNow, 1.0);
+//        result.add(millisPosition);
         return result;
     }
 
@@ -57,16 +57,16 @@ public class ClockModel {
         return getPointOnCircle(origin.x, origin.y, degree, scale * minute);
     }
 
-    private Vector2 getSecondPointPosition(Vector2 origin, double scale, long secondsNow, long millisecondsOfSecond) {
-        double secondsArrowDegree = (double) secondsNow + (double) millisecondsOfSecond / 1000.0;
+    private Vector2 getSecondPointPosition(Vector2 origin, double scale, long secondsNow) {
+        double secondsArrowDegree = (double) secondsNow;
         float degree = (float) (Math.PI / 2.0 - secondsArrowDegree * Math.PI * 2.0 / 60.0);
         return getPointOnCircle(origin.x, origin.y, degree, scale * secondsNow);
     }
 
     private Vector2 getMillisecondsPosition(Vector2 origin, long milliseconds, long secondsNow, double scale) {
         float millisecondsNormalized = (1 - milliseconds / 1000.0f);
-        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow, 0);
-        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow + 1, 0);
+        Vector2 secondsPosition = getSecondPointPosition(origin, scale, secondsNow);
+        Vector2 nextSecondsPosition = getSecondPointPosition(origin, scale, secondsNow + 1);
         Vector2 millisPosition = secondsPosition.interpolate(nextSecondsPosition, millisecondsNormalized, getInterpolation());
         return millisPosition;
     }

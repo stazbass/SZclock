@@ -35,15 +35,11 @@ public class Clock implements Disposable {
     public void draw(SpriteBatch batch, int sizeX, int sizeY) {
         Vector2 origin = new Vector2(sizeX/2.0f, sizeY/2.0f);
         clockModel = new ClockModel(origin, 16.0);
-
-
         batch.begin();
 
         TimeRecord time = timeProvider.getTimeRecord();
-        List<Vector2> seconds = clockModel.getSeconds(time);
-        seconds.forEach(p->drawCentered(batch, blueDot8, p.x, p.y, 1));
-        List<Vector2> minutes = clockModel.getMinutes(time);
-        minutes.forEach(p->drawCentered(batch, greenDot8, p.x, p.y, 1));
+        clockModel.getSeconds(time).forEach(p->drawCentered(batch, blueDot8, p.x, p.y, 1));
+        clockModel.getMinutes(time).forEach(p->drawCentered(batch, greenDot8, p.x, p.y, 1));
 
         batch.end();
     }
