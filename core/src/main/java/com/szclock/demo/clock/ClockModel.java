@@ -48,14 +48,17 @@ public class ClockModel {
         List<Vector2> result = new ArrayList<>(60);
         long hour = record.getHours();
         long minute = record.getMinutes();
+        long seconds = record.getSeconds();
+        long milliseconds = record.getMilliseconds()%1000;
 
         for (int minuteIter = 0; minuteIter < minute; minuteIter++) {
             result.add(getMinutesPointPosition(origin, scale, minuteIter, hour));
         }
+        result.add(getMinutesPointPosition(origin, scale, minute, hour).interpolate(origin, 1 - (seconds + (milliseconds/1000.0f))/60.0f, Interpolation.smoother ));
         return result;
     }
 
-    private Vector2 getMinutesPointPosition(Vector2 origin, double scale, long minute, long hour){
+    private Vector2 getMinutesPointPosition(Vector2 origin, double scale, long minute, double hour){
         double degree = (Math.PI / 2.0 - hour * Math.PI * 2.0 / 12.0);
         return getPointOnCircle(origin.x, origin.y, degree, scale * minute);
     }
