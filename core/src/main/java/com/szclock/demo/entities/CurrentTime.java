@@ -1,4 +1,4 @@
-package com.szclock.demo.clock;
+package com.szclock.demo.entities;
 
 import java.util.Calendar;
 

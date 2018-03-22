@@ -1,5 +1,8 @@
 package com.szclock.demo.clock;
 
+import com.szclock.demo.entities.CurrentTime;
+import com.szclock.demo.entities.TimeRecord;
+
 public class TimeProvider {
     private CurrentTime clock;
 

@@ -1,5 +1,7 @@
 package com.szclock.demo.clock;
 
+import com.szclock.demo.entities.CurrentTime;
+import com.szclock.demo.entities.TimeRecord;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

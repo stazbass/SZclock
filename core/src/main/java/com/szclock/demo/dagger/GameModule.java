@@ -3,7 +3,7 @@ package com.szclock.demo.dagger;
 import com.szclock.demo.TextureManager;
 import com.szclock.demo.clock.CircleMath;
 import com.szclock.demo.clock.Clock;
-import com.szclock.demo.clock.CurrentTime;
+import com.szclock.demo.entities.CurrentTime;
 import com.szclock.demo.data.GameData;
 import com.szclock.demo.logger.GameLogger;
 import dagger.Module;

@@ -2,6 +2,7 @@ package com.szclock.demo.clock;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.szclock.demo.entities.TimeRecord;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,18 +2,16 @@ package com.szclock.demo.clock;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.szclock.demo.TextureManager;
+import com.szclock.demo.entities.CurrentTime;
+import com.szclock.demo.entities.TimeRecord;
 
 import javax.inject.Inject;
-import java.util.List;
 
 public class Clock implements Disposable {
     private Texture blueDot8;
-    private Texture redDot8;
-    private Texture goldenDot16;
     private Texture greenDot8;
     private TextureManager textureManager;
     private ClockModel clockModel;
@@ -27,8 +25,6 @@ public class Clock implements Disposable {
 
     public void init() {
         this.blueDot8 = textureManager.loadTexture("BlueDot8.png");
-        this.redDot8 = textureManager.loadTexture("RedDot8.png");
-        this.goldenDot16 = textureManager.loadTexture("GoldenDot16.png");
         this.greenDot8 = textureManager.loadTexture("GreenDot8.png");
     }
 
