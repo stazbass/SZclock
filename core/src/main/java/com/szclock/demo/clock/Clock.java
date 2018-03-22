@@ -30,7 +30,7 @@ public class Clock implements Disposable {
 
     public void draw(SpriteBatch batch, int sizeX, int sizeY) {
         Vector2 origin = new Vector2(sizeX/2.0f, sizeY/2.0f);
-        clockModel = new ClockModel(origin, 16.0);
+        clockModel = new ClockModel(origin, 10);
         batch.begin();
 
         TimeRecord time = timeProvider.getTimeRecord();
