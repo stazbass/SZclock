@@ -1,4 +1,4 @@
-package com.szclock.demo.clock;
+package com.szclock.demo.components.clock.time;
 
 import com.szclock.demo.entities.CurrentTime;
 import com.szclock.demo.entities.TimeRecord;

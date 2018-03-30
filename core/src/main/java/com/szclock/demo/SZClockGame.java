@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.szclock.demo.clock.Clock;
+import com.szclock.demo.components.clock.Clock;
 import com.szclock.demo.dagger.DaggerMainComponent;
 import com.szclock.demo.dagger.MainComponent;
 import com.szclock.demo.render.FramesPerSecond;

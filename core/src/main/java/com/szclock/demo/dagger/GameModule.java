@@ -1,10 +1,10 @@
 package com.szclock.demo.dagger;
 
 import com.badlogic.gdx.math.Vector2;
-import com.szclock.demo.clock.CircleMath;
-import com.szclock.demo.clock.Clock;
-import com.szclock.demo.clock.ClockView;
-import com.szclock.demo.clock.TimeProvider;
+import com.szclock.demo.math.CircleMath;
+import com.szclock.demo.components.clock.Clock;
+import com.szclock.demo.components.clock.ClockView;
+import com.szclock.demo.components.clock.time.TimeProvider;
 import com.szclock.demo.entities.CurrentTime;
 import com.szclock.demo.logger.GameLogger;
 import com.szclock.demo.render.FramesPerSecond;

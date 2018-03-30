@@ -1,4 +1,4 @@
-package com.szclock.demo.clock;
+package com.szclock.demo.math;
 
 import com.badlogic.gdx.math.Vector2;
 

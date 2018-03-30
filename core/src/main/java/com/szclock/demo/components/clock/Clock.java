@@ -1,8 +1,9 @@
-package com.szclock.demo.clock;
+package com.szclock.demo.components.clock;
 
 import com.badlogic.gdx.utils.Disposable;
 import com.szclock.demo.entities.RenderItem;
 import com.szclock.demo.render.Renderable;
+import com.szclock.demo.components.clock.time.TimeProvider;
 
 import javax.inject.Inject;
 import java.util.LinkedList;

@@ -1,7 +1,6 @@
 package com.szclock.demo.dagger;
 
-import com.szclock.demo.clock.CircleMath;
-import com.szclock.demo.clock.Clock;
+import com.szclock.demo.components.clock.Clock;
 import com.szclock.demo.render.FramesPerSecond;
 import com.szclock.demo.render.Renderer;
 import com.szclock.demo.render.TextureManager;

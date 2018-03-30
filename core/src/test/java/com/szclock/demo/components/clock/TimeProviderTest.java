@@ -1,7 +1,8 @@
-package com.szclock.demo.clock;
+package com.szclock.demo.components.clock;
 
 import com.szclock.demo.entities.CurrentTime;
 import com.szclock.demo.entities.TimeRecord;
+import com.szclock.demo.components.clock.time.TimeProvider;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
