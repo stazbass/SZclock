@@ -13,6 +13,8 @@ import static com.szclock.demo.clock.CircleMath.*;
 public class ClockView {
     private static String SECONDS_TEXTURE = "BlueDot8.png";
     private static String MINUTES_TEXTURE = "GreenDot8.png";
+    private static String GOLDEN_TEXTURE = "GoldenDot8.png";
+
     private static String [] TEXTURES = {SECONDS_TEXTURE, MINUTES_TEXTURE};
 
     private Vector2 origin;
@@ -50,6 +52,18 @@ public class ClockView {
                     new RenderItem(getMinutesPointPosition(origin, scale, minuteIter, hour), MINUTES_TEXTURE));
         }
         result.add(new RenderItem(getMinutesPointPosition(origin, scale, minute, hour).interpolate(origin, 1 - (seconds + (milliseconds/1000.0f))/60.0f, Interpolation.smoother ), MINUTES_TEXTURE));
+        return result;
+    }
+
+    public List<RenderItem> getMilliseconds(TimeRecord record){
+        long secondsNow = record.getSeconds();
+        List<RenderItem> result = new ArrayList<>(1);
+
+        Vector2 position = getSecondPointPosition(origin, scale, secondsNow * (record.getMilliseconds()%1000/1000.0));
+        float scaleVal = record.getMilliseconds()%1000/1000.0f;
+        Vector2 scale = new Vector2(scaleVal, scaleVal );
+        result.add(new RenderItem(position, scale, GOLDEN_TEXTURE));
+
         return result;
     }
 

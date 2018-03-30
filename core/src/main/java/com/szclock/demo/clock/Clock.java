@@ -24,7 +24,8 @@ public class Clock implements Disposable, Renderable {
         List<RenderItem> result = new LinkedList<>();
         result.addAll(clockView.getSeconds(timeProvider.getTimeRecord()));
         result.addAll(clockView.getMinutes(timeProvider.getTimeRecord()));
-        return clockView.getSeconds(timeProvider.getTimeRecord());
+        result.addAll(clockView.getMilliseconds(timeProvider.getTimeRecord()));
+        return result;
     }
 
     @Override
