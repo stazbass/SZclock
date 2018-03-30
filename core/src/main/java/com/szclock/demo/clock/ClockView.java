@@ -15,8 +15,6 @@ public class ClockView {
     private static String MINUTES_TEXTURE = "GreenDot8.png";
     private static String GOLDEN_TEXTURE = "GoldenDot8.png";
 
-    private static String [] TEXTURES = {SECONDS_TEXTURE, MINUTES_TEXTURE};
-
     private Vector2 origin;
     private double scale;
 
@@ -29,12 +27,15 @@ public class ClockView {
         long secondsNow = record.getSeconds();
         List<RenderItem> result = new ArrayList<>(70);
 
-        System.out.println(secondsNow);
         for (int secondIterator = 0; secondIterator < secondsNow; secondIterator++) {
             Vector2 position = getSecondPointPosition(origin, scale, secondIterator);
             float scaleVal = (secondIterator + 2.0f)/ (secondsNow + 2.0f);
             Vector2 scale = new Vector2(scaleVal, scaleVal );
             result.add(new RenderItem(position, scale, SECONDS_TEXTURE));
+        }
+
+        if(secondsNow == 59){
+            result.stream().forEach(i->i.getPosition().interpolate(origin, record.getMilliseconds()%1000/1000.0f, Interpolation.exp5));
         }
 
         return result;
@@ -51,7 +52,8 @@ public class ClockView {
             result.add(
                     new RenderItem(getMinutesPointPosition(origin, scale, minuteIter, hour), MINUTES_TEXTURE));
         }
-        result.add(new RenderItem(getMinutesPointPosition(origin, scale, minute, hour).interpolate(origin, 1 - (seconds + (milliseconds/1000.0f))/60.0f, Interpolation.smoother ), MINUTES_TEXTURE));
+        result.add(new RenderItem(getMinutesPointPosition(origin, scale, minute, hour).interpolate(origin, - (seconds + (milliseconds/1000.0f))/60.0f, Interpolation.smoother ),
+                new Vector2((float)Math.sin(milliseconds/1000.0*Math.PI), (float)Math.sin(milliseconds/1000.0*Math.PI)), MINUTES_TEXTURE));
         return result;
     }
 
@@ -60,10 +62,12 @@ public class ClockView {
         List<RenderItem> result = new ArrayList<>(1);
 
         Vector2 position = getSecondPointPosition(origin, scale, secondsNow * (record.getMilliseconds()%1000/1000.0));
-        float scaleVal = record.getMilliseconds()%1000/1000.0f;
+        float scaleVal = 2*record.getMilliseconds()%1000/1000.0f;
         Vector2 scale = new Vector2(scaleVal, scaleVal );
         result.add(new RenderItem(position, scale, GOLDEN_TEXTURE));
-
+        if(secondsNow == 59){
+            result.stream().forEach(i->i.getPosition().interpolate(origin, record.getMilliseconds()%1000/1000.0f, Interpolation.exp5));
+        }
         return result;
     }
 

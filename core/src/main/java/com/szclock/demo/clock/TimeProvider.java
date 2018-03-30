@@ -15,6 +15,7 @@ public class TimeProvider {
         result.setMilliseconds(clock.getMilliseconds());
         result.setMinutes(clock.getMinute());
         result.setSeconds(clock.getSeconds());
+//        result.setSeconds(clock.getSeconds()%2 == 0 ? 59 : 0);
         return result;
     }
 }
