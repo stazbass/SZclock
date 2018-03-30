@@ -18,6 +18,9 @@ public class RenderItem {
     public RenderItem(Vector2 position, String texture){
         this(position, new Vector2(1, 1), 0, texture);
     }
+    public RenderItem(Vector2 position, Vector2 scale,  String texture){
+        this(position, scale, 0, texture);
+    }
 
     public Vector2 getPosition() {
         return position;

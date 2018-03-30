@@ -20,7 +20,7 @@ public class TextureManager {
     public Texture loadTexture(String path) {
         if(!textures.containsKey(path)){
             Texture result = new Texture(path);
-            result.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            result.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
             textures.put(path, result);
             logger.log("Loaded: ", path);
         }

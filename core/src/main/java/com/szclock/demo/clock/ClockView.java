@@ -30,7 +30,9 @@ public class ClockView {
         System.out.println(secondsNow);
         for (int secondIterator = 0; secondIterator < secondsNow; secondIterator++) {
             Vector2 position = getSecondPointPosition(origin, scale, secondIterator);
-            result.add(new RenderItem(position, SECONDS_TEXTURE));
+            float scaleVal = (secondIterator + 2.0f)/ (secondsNow + 2.0f);
+            Vector2 scale = new Vector2(scaleVal, scaleVal );
+            result.add(new RenderItem(position, scale, SECONDS_TEXTURE));
         }
 
         return result;

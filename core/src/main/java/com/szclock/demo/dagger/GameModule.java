@@ -56,7 +56,7 @@ public class GameModule {
     @Provides
     @Singleton
     public static ClockView provideClockView(){
-        return new ClockView(new Vector2(1024/2, 768/2), 7.0);
+        return new ClockView(new Vector2(1200/2, 1028/2), 7.0);
     }
 
     @Provides
