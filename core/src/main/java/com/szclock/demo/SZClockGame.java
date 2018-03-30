@@ -8,26 +8,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.szclock.demo.clock.Clock;
 import com.szclock.demo.dagger.DaggerMainComponent;
 import com.szclock.demo.dagger.MainComponent;
+import com.szclock.demo.render.FramesPerSecond;
+import com.szclock.demo.render.Renderable;
+import com.szclock.demo.render.Renderer;
+import com.szclock.demo.render.TextureManager;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class SZClockGame extends ApplicationAdapter {
     public static final int VIEWPORT_WIDTH = 1200;
     public static final int VIEWPORT_HEIGHT = 1028;
-    SpriteBatch batch;
+    SpriteBatch mainBatch;
     Clock clock;
     FramesPerSecond fps;
     MainComponent mainComponent;
     OrthographicCamera camera;
+    Renderer renderer;
+    List<Renderable> renderItems = new LinkedList<>();
+    TextureManager textureManager;
 
     @Override
     public void create() {
+        mainBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
-        batch = new SpriteBatch();
         mainComponent = DaggerMainComponent.builder().build();
+        textureManager = mainComponent.provideTextureManager();
+        renderer = mainComponent.provideRenderer();
         clock = mainComponent.provideClock();
-        clock.init();
-        fps = new FramesPerSecond();
+        fps = mainComponent.provideFramesPerSecond();
     }
 
     @Override
@@ -36,20 +47,20 @@ public class SZClockGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
+        mainBatch.setProjectionMatrix(camera.combined);
 
-        clock.draw(batch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        fps.draw(batch);
+        renderer.render(() -> mainBatch, () -> clock.collectRenderItems());
+        fps.draw(mainBatch);
     }
 
     @Override
     public void resize(int width, int height) {
-        camera.update();
+        camera.update(true);
     }
 
     @Override
     public void dispose() {
         clock.dispose();
-        batch.dispose();
+        mainBatch.dispose();
     }
 }

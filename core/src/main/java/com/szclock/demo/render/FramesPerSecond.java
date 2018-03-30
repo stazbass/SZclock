@@ -1,4 +1,4 @@
-package com.szclock.demo;
+package com.szclock.demo.render;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

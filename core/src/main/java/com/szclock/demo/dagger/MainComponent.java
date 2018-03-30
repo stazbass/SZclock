@@ -2,6 +2,9 @@ package com.szclock.demo.dagger;
 
 import com.szclock.demo.clock.CircleMath;
 import com.szclock.demo.clock.Clock;
+import com.szclock.demo.render.FramesPerSecond;
+import com.szclock.demo.render.Renderer;
+import com.szclock.demo.render.TextureManager;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -10,4 +13,7 @@ import javax.inject.Singleton;
 @Singleton
 public interface MainComponent {
     Clock provideClock();
+    TextureManager provideTextureManager();
+    Renderer provideRenderer();
+    FramesPerSecond provideFramesPerSecond();
 }
