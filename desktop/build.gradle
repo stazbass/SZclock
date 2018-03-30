@@ -2,7 +2,7 @@ apply plugin: "java"
 //apply plugin: "net.ltgt.apt"
 
 sourceCompatibility = 1.8
-sourceSets.main.java.srcDirs = [ "src/main/java" ]
+//sourceSets.main.java.srcDirs = [ "src/main/java" ]
 
 project.ext.mainClassName = "com.szclock.demo.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets")
@@ -11,7 +11,7 @@ task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
-    workingDir = project.assetsDir
+    workingDir = project.ext.assetsDir
     ignoreExitValue = true
 }
 
@@ -24,18 +24,18 @@ task debug(dependsOn: classes, type: JavaExec) {
     debug = true
 }
 
-task dist(type: Jar) {
+task dist(dependsOn: classes, type: Jar) {
     from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
-    from {configurations.compile.collect {zipTree(it)}}
-    from files(project.assetsDir);
+//    from files(sourceSets.main.output.assetsDir)
+//    from {configurations.compile.collect {zipTree(it)}}
+    from files("../core/assets")
  
     manifest {
-        attributes 'Main-Class': project.mainClassName
+        attributes 'Main-Class': project.ext.mainClassName
     }
 }
 
-dist.dependsOn classes
+//dist.dependsOn classes
 
 eclipse {
     project {
